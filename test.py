@@ -8,7 +8,7 @@ Created on Wed Apr 10 13:44:06 2019
 import bs4 as bs
 import pandas as pd 
 import requests as re
-from LawVis_01 import *
+from LawVis import *
 import networkx as nx 
 import pickle 
 from os import listdir
