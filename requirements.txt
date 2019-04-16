@@ -1,0 +1,8 @@
+requests==2.21.0
+pandas==0.24.2
+plotly==3.7.0
+networkx==2.2
+beautifulsoup4==4.7.1
+dash==0.41.0
+dash_core_components==0.46.0
+dash_html_components==0.15.0
