@@ -183,4 +183,4 @@ for link in df["link"]:
 #        else:
 #            pass
 #%%
-#nx.draw(g, with_labels=True)
+nx.draw(g, with_labels=True)

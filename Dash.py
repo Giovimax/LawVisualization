@@ -43,7 +43,9 @@ import pickle
 with open("gg","b+r") as f:
     G = pickle.load(f)
 #%%
+print("generating graph")
 pos = nx.drawing.layout.kamada_kawai_layout(G)
+print("graph generated")
 nx.set_node_attributes(G,pos,name="pos")
 
 dmin=1
@@ -74,7 +76,7 @@ node_trace = go.Scatter(
     x=[],
     y=[],
     text=[],
-    mode='markers+text',
+    mode='markers',
 #    hoverinfo='text',
     marker=dict(
         showscale=True,
@@ -141,7 +143,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']#import sty
 app = dash.Dash(external_stylesheets=external_stylesheets)
 app.layout = html.Div([
         html.H3("Test"),
-        dcc.Graph(figure={"data":data,"layout":layout})
+        dcc.Graph(figure={"data":data,"layout":layout},style={'height': 800},)
         ])
 #%%
 app.run_server(debug=True)
