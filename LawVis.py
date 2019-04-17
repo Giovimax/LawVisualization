@@ -83,7 +83,7 @@ def crawlBoccardi(link,raw=True,links = True, complex_ = False):
     return (toret,next_page)
 
 #%%
-def clearLink(link):
+def clearLink(link,noExtension=True):
     """returns a cleaned list of each section of the link, also excludes 
     empty strings and deletes the extension at the end of the link"""
     l = link.split("/") 
@@ -93,7 +93,13 @@ def clearLink(link):
         l = l[1:]
     else:
         pass
-    l[-1] = l[-1].split(".")[0]
+    if noExtension:
+        l[-1] = l[-1].split(".")[0]
+    else:
+        pass
+    for n,i in enumerate(l):
+        if i == "":
+            l.pop(n)
     return l
 
 #%%
