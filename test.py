@@ -157,4 +157,6 @@ for link in df["link"]:
    
 
 #%%
-nx.draw(g, with_labels=True)
+#nx.draw(g, with_labels=True)
+
+
