@@ -10,6 +10,9 @@ import requests as re
 import bs4 as bs
 import LawVis as lv
 import time
+import datetime
+import pickle 
+now = datetime.datetime.now
 #%%
 def retrieveg_content(link):
     re_ = re.get(link)
@@ -43,28 +46,28 @@ list_href_fonti_utili = [i for i in map(lambda x: x["href"],list_href_fonti_util
 
 #%%
 #testing on one instance
-l = list_href_fonti_utili[0]
-dominio = "https://www.brocardi.it"
-b_content = retrieveg_content(dominio+l)
-
-b_first_section_title = b_content.find("div",class_="section-title")
-
-c = b_first_section_title.find("a",href=True)["href"]
-
-c_content = retrieveg_content(dominio+c)
-
-find_c_child = genChildFromParentFinder(c)
-c_first_section_title = [i for i in map(lambda x: x["href"],c_content.findAll("a",href=find_c_child))]
-for i in c_first_section_title:
-    if ".html" in i:
-        print(i)
-        break
+#l = list_href_fonti_utili[0]
+#dominio = "https://www.brocardi.it"
+#b_content = retrieveg_content(dominio+l)
+#
+#b_first_section_title = b_content.find("div",class_="section-title")
+#
+#c = b_first_section_title.find("a",href=True)["href"]
+#
+#c_content = retrieveg_content(dominio+c)
+#
+#find_c_child = genChildFromParentFinder(c)
+#c_first_section_title = [i for i in map(lambda x: x["href"],c_content.findAll("a",href=find_c_child))]
+#for i in c_first_section_title:
+#    if ".html" in i:
+#        print(i)
+#        break
 #%%
 def firstLink(listaFonti,delay=0.1):
     dicttoret = {}
     dominio = "https://www.brocardi.it"
     def recursiveFristLinkSearch(fonte,tested = []):
-        print(fonte)
+        #print(fonte)
  
         def listChilds(fonte,):
             #link preparation
@@ -73,7 +76,7 @@ def firstLink(listaFonti,delay=0.1):
                 dominio_fonte = dominio + fonte
             else:
                 dominio_fonte = fonte      
-            print(fonte)
+            #print(fonte)
             
             fonte_content = retrieveg_content(dominio_fonte)
             fonte_child_finder = genChildFromParentFinder(fonte)
@@ -83,11 +86,11 @@ def firstLink(listaFonti,delay=0.1):
         fonte_list_childs = listChilds(fonte)
         time.sleep(delay)
         
-        print(fonte_list_childs)
+        #print(fonte_list_childs)
         for i in fonte_list_childs:
             if i not in tested:
                 tested.append(i)
-                print(i)
+                #print(i)
                 if ".html" in i:
                     return i
                 else:
@@ -104,6 +107,7 @@ def firstLink(listaFonti,delay=0.1):
             
                 
     for fonte in listaFonti:
+        key = fonte.slpit("/")
         dicttoret[fonte] = recursiveFristLinkSearch(fonte)
     
     return dicttoret 
@@ -111,4 +115,50 @@ def firstLink(listaFonti,delay=0.1):
 #%%
 dictFonti = firstLink(list_href_fonti_utili)
 
+#%%
 
+def crawlCode(linkList):
+    outputList=[]
+    status = True
+    while status:
+#    for i in range(10):
+        item = lv.crawlBoccardi(linkList[-1],raw = False, complex_=True)
+        time.sleep(0.1)
+        outputList.append(item[0])
+        if item[1] == False:
+            status = False
+        else:
+            linkList.append(item[1])
+        print(item[0]["path"][-1])
+    print("finished")
+    return outputList
+
+#%%
+try:
+    print("Trying opening log...")
+    with open("log.txt","b+r") as f:
+        log = pickle.load(f)
+    print("log opend.")
+    print(log)
+except:
+    print("log not present creating...")
+    log = {k:False for k in dictFonti.keys()}
+
+
+
+for code in dictFonti:
+    if log[code] == False:
+        codeName = code.replace("-","_")
+        print("Crawling {}...".format(codeName))
+        codeList = crawlCode([dictFonti[code]])
+        print("Done. Creating file...")
+        with open("Data/{}.codice".format(codeName)) as f:
+            pickle.dump(codeList,f)
+        print("File created. Updating log")
+        log[code] = True
+        with open("log.txt", "b+w") as f:
+            pickle.dump(log,f)
+        print("{} extraction completed.")
+    else:
+        print("{} already done, skipping...".format(code))
+print("Done.")
