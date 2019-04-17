@@ -19,38 +19,37 @@ import pickle
 from os import listdir
 
 
-#G=nx.random_geometric_graph(200,0.125)
 #%%
-#print("loading all.txt")
-#with open("all.txt","b+r") as file:
-#    df = pickle.load(file)
-#        
-#
-#
-#
-#G = nx.Graph()
-##g.add_nodes_from([str(i) for i in df["path"]])
-#for i in df["path"]:
-#    for n,j in enumerate(i):
-#        if j not in G.nodes:
-#            G.add_node(j)
-#            if n !=0:
-#                G.add_edge(j,i[n-1])
-#            else:
-#                pass
-#        else:
-#            pass
-
 
 data, layout = None, None
+print("Cheching Data")
 if "Data" not in listdir():
+    
     print("no Data folder in working directory, doing calculations")
+    print("Loading graph from gg...")
     with open("gg","b+r") as f:
         G = pickle.load(f)
+        print("gg loaded.")
     #%%
-    print("generating graph")
-    pos = nx.drawing.layout.kamada_kawai_layout(G)
-    print("graph generated")
+    #graph
+
+    
+    try:
+        print("trying loading pos")
+        with open("Data/pos","b+r") as f:
+            pos = pickle.load(f)
+            print("pos loaded")
+    except:
+        print("pos not found in Data/pos, creating...")
+        print("generating graph")
+        pos = nx.drawing.layout.kamada_kawai_layout(G)
+        print("graph generated")
+        with open("Data/pos","b+w") as f:
+            pickle.dump(pos,f)
+    finally:
+        print("pos file management completed")
+            
+
     nx.set_node_attributes(G,pos,name="pos")
     
     dmin=1
@@ -147,7 +146,7 @@ else:
     for d in listdir("Data"):
         print(d)
         with open("Data/"+d,"b+r") as file:
-            print("opening",data)
+            print("opening",d)
             a = pickle.load(file)
             if d == "data":
                 data = a
