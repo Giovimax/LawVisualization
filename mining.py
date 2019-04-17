@@ -107,8 +107,8 @@ def firstLink(listaFonti,delay=0.1):
             
                 
     for fonte in listaFonti:
-        key = fonte.slpit("/")
-        dicttoret[fonte] = recursiveFristLinkSearch(fonte)
+        key = fonte.split("/")[1]
+        dicttoret[key] = recursiveFristLinkSearch(fonte)
     
     return dicttoret 
 
@@ -129,7 +129,7 @@ def crawlCode(linkList):
             status = False
         else:
             linkList.append(item[1])
-        print(item[0]["path"][-1])
+        print(item[0]["path"])
     print("finished")
     return outputList
 
@@ -150,15 +150,15 @@ for code in dictFonti:
     if log[code] == False:
         codeName = code.replace("-","_")
         print("Crawling {}...".format(codeName))
-        codeList = crawlCode([dictFonti[code]])
+        codeList = crawlCode(["https://www.brocardi.it"+dictFonti[code]])
         print("Done. Creating file...")
-        with open("Data/{}.codice".format(codeName)) as f:
+        with open("Data/{}.codice".format(codeName),"b+w") as f:
             pickle.dump(codeList,f)
         print("File created. Updating log")
         log[code] = True
         with open("log.txt", "b+w") as f:
             pickle.dump(log,f)
-        print("{} extraction completed.")
+        print("{} extraction completed.".format(code))
     else:
         print("{} already done, skipping...".format(code))
 print("Done.")
