@@ -22,15 +22,15 @@ from time import sleep
     The code can function with the while: and the flag "status" or with the 
     for loop with the range funct if only a fraction of the articles is needed.
 """
-if "Data/all.txt" not in listdir():
+try:
+    link,todf
+except:
+    link = ['https://www.brocardi.it/codice-civile/libro-primo/titolo-i/art1.html']
+    todf = []
+
+if "all.txt" not in listdir("Data/"):
     print("no all.txt, creating and dumping")
-    #safety mesure
-    try:
-        link,todf
-    except:
-        link = ['https://www.brocardi.it/codice-civile/libro-primo/titolo-i/art1.html']
-        todf = []
-        
+    #safety mesure        
     status = True#flag for the while:
     
     while status:
@@ -50,35 +50,9 @@ if "Data/all.txt" not in listdir():
         pickle.dump(df,file)
 else:
     print("loading all.txt")
-    with open("all.txt","b+r") as file:
+    with open("Data/all.txt","b+r") as file:
         df = pickle.load(file)
         
-
-
-#%%
-
-
-#extraction of the dict from raw to path
-#rawToPatDict = dict()
-#"""A dict that contains the particle names from the link as keys and the 
-#name extracted from the path in the website as value, it is needed to map 
-#more readeable names over the raw ones"""
-#for i in range(len(df)):#for row in df
-#    path, link = df.loc[i,["path","link"]]#unpacks and assigns 
-#    #preparation 
-#    #cl
-#    cl = lv.clearLink(link)
-#    for n, i in enumerate(cl):
-#        if i == 'www.brocardi.it': #removes everything before and the domain 
-#            cl = cl[n+1:]
-#            break
-#    #path
-#    path = path[1:] #removes the useless part
-#    #main
-#    for k,v in zip(cl,path): 
-#        if k not in rawToPatDict:
-#            rawToPatDict[k] = v
-        # ^ depreciated by genRawToPathDict
 
 
 #%%
@@ -96,10 +70,26 @@ rawToPatDict = lv.genRawToPathDict(df)
 #@todo: ?
 
 #advanced method with function
-
+lv.populateGraph(g,df,rawToPatDict)
  
 
 #%%
-#nx.draw(g, with_labels=True)
+for linkList, itemLink in zip(df["link_commi"],df["link"]):
+    for linkFromList in linkList:
+        if "dizionario" not in linkFromList:
+            if "nota" not in linkFromList:
+                #the actual stuff
+                tupleFromLink = lv.linkToTouples(linkFromList)
+                if tupleFromLink[-1] not in g.nodes:
+                    lv.addItemAsNode(g,tupleFromLink,rawToPatDict)
+                else:
+                    pass
+                g.add_edge(tupleFromLink[-1],lv.linkToTouples(itemLink)[-1],type_="text")
+        pass
+    pass
 
+#%%
+print("Drawing...")
+nx.draw(g, with_labels=False)
 
+    

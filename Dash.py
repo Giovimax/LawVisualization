@@ -23,31 +23,31 @@ from os import listdir
 
 data, layout = None, None
 print("Cheching Data")
-if "Data" not in listdir():
+if "ggg"  in listdir("Data/"):
     
     print("no Data folder in working directory, doing calculations")
-    print("Loading graph from gg...")
-    with open("gg","b+r") as f:
+    print("Loading graph from ggg...")
+    with open("Data/ggg","b+r") as f:
         G = pickle.load(f)
-        print("gg loaded.")
+        print("ggg loaded.")
     #%%
     #graph
 
     
     try:
         print("trying loading pos")
-        with open("Data/pos","b+r") as f:
+        with open("Data/posggg","b+r") as f:
             pos = pickle.load(f)
-            print("pos loaded")
+            print("posggg loaded")
     except:
-        print("pos not found in Data/pos, creating...")
+        print("pos not found in Data/posggg, creating...")
         print("generating graph")
         pos = nx.drawing.layout.kamada_kawai_layout(G)
         print("graph generated")
-        with open("Data/pos","b+w") as f:
+        with open("Data/posggg","b+w") as f:
             pickle.dump(pos,f)
     finally:
-        print("pos file management completed")
+        print("posggg file management completed")
             
 
     nx.set_node_attributes(G,pos,name="pos")
@@ -71,6 +71,7 @@ if "Data" not in listdir():
         mode='lines')
     
     for edge in G.edges():
+        print(edge)
         x0, y0 = G.node[edge[0]]['pos']
         x1, y1 = G.node[edge[1]]['pos']
         edge_trace['x'] += tuple([x0, x1, None])

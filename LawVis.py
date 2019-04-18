@@ -153,8 +153,14 @@ def linkToTouples(link):
     return iterable
 
 
-def addItemAsNode(G,link,ToPathDict):
-    iterable = linkToTouples(link)
+def addItemAsNode(G,link_or_tuple,ToPathDict):
+    iterable = None
+    if type(link_or_tuple) == str:
+        #if link form, creates tuple
+        iterable = linkToTouples(link_or_tuple)
+    elif type(link_or_tuple) == list:
+        #if already tuple, reanames
+        iterable = link_or_tuple
     """i'm now using as a univoque node the full relevant path of each section 
     of the actutual path of the single object"""        
     for n, node in enumerate(iterable):
