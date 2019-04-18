@@ -80,42 +80,13 @@ else:
 #            rawToPatDict[k] = v
         # ^ depreciated by genRawToPathDict
 
-def genRawToPathDict(df):
-    """take the df for one code and combines the well formatted names of 
-    the code's sections from the page and the paths from the link"""
-    toret = dict()
-    for i in range(len(df)):#for row in df
-        path, link = df.loc[i,["path","link"]]#unpacks and assigns 
-        #preparation 
-        #cl
-        cl = lv.clearLink(link)#stands for clear link
-        for n, i in enumerate(cl):
-            if i == 'www.brocardi.it': #removes everything before and the domain 
-                cl = cl[n+1:]
-                break
-        #path
-        path = path[1:] #removes the useless part
-        #main
-        for k,v in zip(cl,path): 
-            if k not in toret:
-                toret[k] = v
-    return toret
-
-def rawToPath(rawlist): #uses the rawToPatDict dict to substitute matching vals
-    rawlistcopy = list(rawlist)
-    for i, l in enumerate(rawlist):
-        if l in rawToPatDict:
-            rawlistcopy[i] = rawToPatDict[l]
-        else:
-            pass
-    return rawlistcopy
 
 #%%
 #CREATION OF THE NETWORK OBJECT
 g = nx.Graph()
 
 #%%
-rawToPatDict = genRawToPathDict(df)
+rawToPatDict = lv.genRawToPathDict(df)
 #%%
 
 # FIXME: ?
@@ -125,36 +96,8 @@ rawToPatDict = genRawToPathDict(df)
 #@todo: ?
 
 #advanced method with function
-# TODO: make rawToPatDict independent 
-def addItemAsNode(G,link,ToPatDict):
-    #TODO: change link to the list from path_from_dict to diminish processing
-    clearLinkList = lv.clearLink(link)#list of relevent items
-    
-    iterable = []
-    """i'm now using as a univoque node the full relevant path of each section 
-    of the actutual path of the single object"""
-    for n, item in enumerate(clearLinkList):
-        iterable.append(tuple(clearLinkList[:n+1]))
-        
-    for n, node in enumerate(iterable):
-        #for each possible node
-        if node not in G.nodes:
-            #name part
-            name = None
-            if node[-1] in ToPatDict: #sets the name as pretty name if possible
-                name = ToPatDict[node[-1]]
-            #adding node
-            G.add_node(node,name=name)
-            #creating edges
-            if n != 0:
-                g.add_edge(node,iterable[n-1])
-            else:
-                pass
 
-#actual population of the network
-for link in df["link"]:
-    addItemAsNode(g,link)
-   
+ 
 
 #%%
 #nx.draw(g, with_labels=True)
