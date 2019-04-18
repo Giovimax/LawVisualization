@@ -137,15 +137,26 @@ def rawToPath(rawlist,rawToPatDict):
     return rawlistcopy
 
 #%%
-def addItemAsNode(G,link,ToPathDict):
+
+def linkToTouples(link):
+    """Takes the link and creates a LIST of TUPLES tha that is shaped like this:
+        link = "/codice-di-procedura-civile/libro-primo/titolo-v/art112.html"
+        out = [('codice-di-procedura-civile',),
+         ('codice-di-procedura-civile', 'libro-primo'),
+         ('codice-di-procedura-civile', 'libro-primo', 'titolo-v'),
+         ('codice-di-procedura-civile', 'libro-primo', 'titolo-v', 'art112')]
+        """
     clearLinkList = clearLink(link)#list of relevent items
-    
     iterable = []
-    """i'm now using as a univoque node the full relevant path of each section 
-    of the actutual path of the single object"""
     for n, item in enumerate(clearLinkList):
         iterable.append(tuple(clearLinkList[:n+1]))
-        
+    return iterable
+
+
+def addItemAsNode(G,link,ToPathDict):
+    iterable = linkToTouples(link)
+    """i'm now using as a univoque node the full relevant path of each section 
+    of the actutual path of the single object"""        
     for n, node in enumerate(iterable):
         #for each possible node
         if node not in G.nodes:
