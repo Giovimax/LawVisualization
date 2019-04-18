@@ -137,7 +137,7 @@ def rawToPath(rawlist,rawToPatDict):
     return rawlistcopy
 
 #%%
-def addItemAsNode(G,link,ToPatDict):
+def addItemAsNode(G,link,ToPathDict):
     clearLinkList = clearLink(link)#list of relevent items
     
     iterable = []
@@ -151,8 +151,8 @@ def addItemAsNode(G,link,ToPatDict):
         if node not in G.nodes:
             #name part
             name = None
-            if node[-1] in ToPatDict: #sets the name as pretty name if possible
-                name = ToPatDict[node[-1]]
+            if node[-1] in ToPathDict: #sets the name as pretty name if possible
+                name = ToPathDict[node[-1]]
             #adding node
             G.add_node(node,name=name)
             #creating edges
@@ -162,15 +162,15 @@ def addItemAsNode(G,link,ToPatDict):
                 pass
 #%%
 #actual population of the network
-def populateGraph(G,df,verbose=False):
-    print("Starting...")
+def populateGraph(G,df,ToPathDict,verbose=False):
+    print("Starting to populate graph...")
     if verbose:
         print("Mode is verbose")
     for link in df["link"]:
-        addItemAsNode(G,link)
+        addItemAsNode(G,link,ToPathDict)
         if verbose:
             print("added %s"%link)
-    print("Finished.")
+    print("Finished populating.")
   
 
 #%%
