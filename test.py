@@ -73,21 +73,9 @@ rawToPatDict = lv.genRawToPathDict(df)
 lv.populateGraph(g,df,rawToPatDict)
  
 
-#%%
-for linkList, itemLink in zip(df["link_commi"],df["link"]):
-    for linkFromList in linkList:
-        if "dizionario" not in linkFromList:
-            if "nota" not in linkFromList:
-                #the actual stuff
-                tupleFromLink = lv.linkToTouples(linkFromList)
-                if tupleFromLink[-1] not in g.nodes:
-                    lv.addItemAsNode(g,tupleFromLink,rawToPatDict)
-                else:
-                    pass
-                g.add_edge(tupleFromLink[-1],lv.linkToTouples(itemLink)[-1],type_="text")
-        pass
-    pass
 
+#%%
+lv.linksFromCommi(g,df,rawToPatDict)
 #%%
 print("Drawing...")
 nx.draw(g, with_labels=False)
