@@ -5,12 +5,12 @@ Created on Wed Apr 10 13:17:21 2019
 
 @author: giovimax
 """
-
+#%% IMPORTS
 import bs4 as bs
 import pandas as pd 
 import requests as re
 import networkx as nx 
-
+#%% GUIDES
 """the proces from the df to the complete graph goes like this:
     1)create a rawToPatDict from the function genRawToPathDict
     2)create a graph object
