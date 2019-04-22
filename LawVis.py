@@ -169,7 +169,7 @@ def addItemAsNode(G,link_or_tuple,ToPathDict,weight=1):
     if type(link_or_tuple) == str:
         #if link form, creates tuple
         iterable = linkToTouples(link_or_tuple)
-    elif type(link_or_tuple) == list:linksFromCommi
+    elif type(link_or_tuple) == list:
         #if already tuple, reanames
         iterable = link_or_tuple
     """i'm now using as a univoque node the full relevant path of each section 
@@ -190,12 +190,12 @@ def addItemAsNode(G,link_or_tuple,ToPathDict,weight=1):
                 pass
 #%%
 #actual population of the network
-def populateGraph(G,df,ToPathDict,verbose=False):
+def populateGraph(G,df,ToPathDict,weight=1,verbose=False):
     print("Starting to populate graph...")
     if verbose:
         print("Mode is verbose")
     for link in df["link"]:
-        addItemAsNode(G,link,ToPathDict)
+        addItemAsNode(G,link,ToPathDict,weight)
         if verbose:
             print("added %s"%link)
     print("Finished populating.")

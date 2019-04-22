@@ -1,0 +1,164 @@
+-Entry- 2019-04-20 21:28:37.118007
+Working on fruchterman_reingold_layout__secondary_weight_1__primary_weight_1_ 2019-04-20 21:28:37.117126 
+-Entry- 2019-04-20 21:28:37.118268
+CREATING GRAPH 
+-Entry- 2019-04-20 21:28:37.118520
+creating rawToPathDict 
+-Entry- 2019-04-20 21:28:39.147053
+populating graph 
+-Entry- 2019-04-20 21:28:39.194829
+additional edges 
+-Entry- 2019-04-20 21:28:39.308060
+Computing postion... 2019-04-20 21:28:39.307571 
+-Entry- 2019-04-20 21:29:35.295783
+Position computed 2019-04-20 21:29:35.295223 0:00:55.987652 
+-Entry- 2019-04-20 21:29:35.296059
+Starting computing dashTuple 2019-04-20 21:29:35.295838 
+-Entry- 2019-04-20 22:08:43.346760
+Working on fruchterman_reingold_layout__secondary_weight_1__primary_weight_1_ 2019-04-20 22:08:43.346410 
+-Entry- 2019-04-20 22:08:43.347281
+CREATING GRAPH 
+-Entry- 2019-04-20 22:08:43.347419
+creating rawToPathDict 
+-Entry- 2019-04-20 22:08:45.369634
+populating graph 
+-Entry- 2019-04-20 22:08:45.413850
+additional edges 
+-Entry- 2019-04-20 22:08:45.522840
+Computing postion... 2019-04-20 22:08:45.522689 
+-Entry- 2019-04-20 22:09:41.867274
+Position computed 2019-04-20 22:09:41.866646 0:00:56.343957 
+-Entry- 2019-04-20 22:09:41.867576
+Starting computing dashTuple 2019-04-20 22:09:41.867336 
+-Entry- 2019-04-20 22:10:46.448268
+Working on fruchterman_reingold_layout__secondary_weight_1__primary_weight_1_ 2019-04-20 22:10:46.447629 
+-Entry- 2019-04-20 22:10:46.448355
+CREATING GRAPH 
+-Entry- 2019-04-20 22:10:46.448591
+creating rawToPathDict 
+-Entry- 2019-04-20 22:10:48.427161
+populating graph 
+-Entry- 2019-04-20 22:10:48.473035
+additional edges 
+-Entry- 2019-04-20 22:10:48.584883
+Computing postion... 2019-04-20 22:10:48.584393 
+-Entry- 2019-04-20 22:11:47.030053
+Position computed 2019-04-20 22:11:47.028876 0:00:58.444483 
+-Entry- 2019-04-20 22:11:47.030187
+Starting computing dashTuple 2019-04-20 22:11:47.030106 
+-Entry- 2019-04-20 22:21:00.896669
+Finished computing dashTuple 2019-04-20 22:21:00.896127 0:09:13.866021 
+-Entry- 2019-04-20 22:21:00.896773
+Saving... 
+-Entry- 2019-04-20 22:21:00.937024
+Saving Done! Finished 2019-04-20 22:21:00.936712 0:10:14.489086 
+-Entry- 2019-04-20 22:21:00.937986
+Working on fruchterman_reingold_layout__secondary_weight_1__primary_weight_0.5_ 2019-04-20 22:21:00.937473 
+-Entry- 2019-04-20 22:21:00.938155
+CREATING GRAPH 
+-Entry- 2019-04-20 22:21:00.938291
+creating rawToPathDict 
+-Entry- 2019-04-20 22:21:02.903264
+populating graph 
+-Entry- 2019-04-20 22:21:02.950754
+additional edges 
+-Entry- 2019-04-20 22:21:03.063742
+Computing postion... 2019-04-20 22:21:03.063583 
+-Entry- 2019-04-20 22:21:59.403841
+Position computed 2019-04-20 22:21:59.403277 0:00:56.339694 
+-Entry- 2019-04-20 22:21:59.404115
+Starting computing dashTuple 2019-04-20 22:21:59.403894 
+-Entry- 2019-04-20 22:27:31.634478
+Finished computing dashTuple 2019-04-20 22:27:31.633935 0:05:32.230041 
+-Entry- 2019-04-20 22:27:31.634585
+Saving... 
+-Entry- 2019-04-20 22:27:31.664707
+Saving Done! Finished 2019-04-20 22:27:31.664197 0:06:30.726728 
+-Entry- 2019-04-20 22:27:31.665039
+Working on fruchterman_reingold_layout__secondary_weight_1__primary_weight_0.1_ 2019-04-20 22:27:31.664961 
+-Entry- 2019-04-20 22:27:31.665571
+CREATING GRAPH 
+-Entry- 2019-04-20 22:27:31.665706
+creating rawToPathDict 
+-Entry- 2019-04-20 22:27:33.653098
+populating graph 
+-Entry- 2019-04-20 22:27:33.701529
+additional edges 
+-Entry- 2019-04-20 22:27:33.809397
+Computing postion... 2019-04-20 22:27:33.809223 
+-Entry- 2019-04-20 22:28:29.650321
+Position computed 2019-04-20 22:28:29.649760 0:00:55.840537 
+-Entry- 2019-04-20 22:28:29.650596
+Starting computing dashTuple 2019-04-20 22:28:29.650374 
+-Entry- 2019-04-20 22:34:00.086331
+Finished computing dashTuple 2019-04-20 22:34:00.085546 0:05:30.435172 
+-Entry- 2019-04-20 22:34:00.086439
+Saving... 
+-Entry- 2019-04-20 22:34:00.115913
+Saving Done! Finished 2019-04-20 22:34:00.115528 0:06:28.450570 
+-Entry- 2019-04-20 22:34:00.116713
+Working on kamada_kawai_layout__secondary_weight_1__primary_weight_1_ 2019-04-20 22:34:00.116179 
+-Entry- 2019-04-20 22:34:00.116781
+CREATING GRAPH 
+-Entry- 2019-04-20 22:34:00.117033
+creating rawToPathDict 
+-Entry- 2019-04-20 22:34:02.112950
+populating graph 
+-Entry- 2019-04-20 22:34:02.156560
+additional edges 
+-Entry- 2019-04-20 22:34:02.266708
+Computing postion... 2019-04-20 22:34:02.266190 
+-Entry- 2019-04-20 22:39:26.158352
+Position computed 2019-04-20 22:39:26.157259 0:05:23.891069 
+-Entry- 2019-04-20 22:39:26.158821
+Starting computing dashTuple 2019-04-20 22:39:26.158548 
+-Entry- 2019-04-20 22:48:38.849365
+Finished computing dashTuple 2019-04-20 22:48:38.848728 0:09:12.690180 
+-Entry- 2019-04-20 22:48:38.849594
+Saving... 
+-Entry- 2019-04-20 22:48:38.891044
+Saving Done! Finished 2019-04-20 22:48:38.890560 0:14:38.774386 
+-Entry- 2019-04-20 22:48:38.906945
+Working on kamada_kawai_layout__secondary_weight_1__primary_weight_0.5_ 2019-04-20 22:48:38.906342 
+-Entry- 2019-04-20 22:48:38.907032
+CREATING GRAPH 
+-Entry- 2019-04-20 22:48:38.907274
+creating rawToPathDict 
+-Entry- 2019-04-20 22:48:40.983776
+populating graph 
+-Entry- 2019-04-20 22:48:41.028550
+additional edges 
+-Entry- 2019-04-20 22:48:41.137717
+Computing postion... 2019-04-20 22:48:41.137560 
+-Entry- 2019-04-20 22:58:13.760563
+Position computed 2019-04-20 22:58:13.759802 0:09:32.622242 
+-Entry- 2019-04-20 22:58:13.760996
+Starting computing dashTuple 2019-04-20 22:58:13.760730 
+-Entry- 2019-04-20 23:03:44.018801
+Finished computing dashTuple 2019-04-20 23:03:44.018244 0:05:30.257514 
+-Entry- 2019-04-20 23:03:44.019053
+Saving... 
+-Entry- 2019-04-20 23:03:44.049348
+Saving Done! Finished 2019-04-20 23:03:44.048775 0:15:05.142437 
+-Entry- 2019-04-20 23:03:44.056136
+Working on kamada_kawai_layout__secondary_weight_1__primary_weight_0.1_ 2019-04-20 23:03:44.055590 
+-Entry- 2019-04-20 23:03:44.056346
+CREATING GRAPH 
+-Entry- 2019-04-20 23:03:44.056409
+creating rawToPathDict 
+-Entry- 2019-04-20 23:03:46.047288
+populating graph 
+-Entry- 2019-04-20 23:03:46.095101
+additional edges 
+-Entry- 2019-04-20 23:03:46.203052
+Computing postion... 2019-04-20 23:03:46.202878 
+-Entry- 2019-04-20 23:29:23.022712
+Position computed 2019-04-20 23:29:23.022035 0:25:36.819157 
+-Entry- 2019-04-20 23:29:23.023003
+Starting computing dashTuple 2019-04-20 23:29:23.022763 
+-Entry- 2019-04-20 23:34:53.492893
+Finished computing dashTuple 2019-04-20 23:34:53.492296 0:05:30.469533 
+-Entry- 2019-04-20 23:34:53.492998
+Saving... 
+-Entry- 2019-04-20 23:34:53.522221
+Saving Done! Finished 2019-04-20 23:34:53.521866 0:31:09.466279 
