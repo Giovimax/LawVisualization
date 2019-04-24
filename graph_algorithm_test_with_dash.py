@@ -5,34 +5,18 @@ Created on Fri Apr 19 16:42:57 2019
 
 @author: giovimax
 """
+#%%IMPORTS
 
 from Dash import dashify
 import pickle
 import networkx as nx
-import datetime
 import LawVis as lv
 import pandas as pd
+import datetime
 now = datetime.datetime.now 
-#%%
-#with open("Data/ggg", "b+r") as f:
-#    G = pickle.load(f)
-#%%
-def pp(*args,**kwargs):
-    """Prints *args as the standard print but also appends an entry to the only 
-    kwarg possible: "file", that is opend in append mode, also records the 
-    time of the entry"""
-    try:
-        if "file" in kwargs:
-            file = kwargs["file"]
-    except:
-        pass
-    print(*args)
-    with open(file,"a") as f:
-        f.write("-Entry- "+str(now())+"\n")
-        for a in args:
-            f.write(str(a)+" ")
-        else:
-            f.write("\n")
+
+#%% Definitions
+
 
     
 def dashTupleFromGraph(df,layoutFunction,folder,verbose = True,**kwargs):
@@ -47,7 +31,7 @@ def dashTupleFromGraph(df,layoutFunction,folder,verbose = True,**kwargs):
     
     def P(*args):
             if verbose:
-                pp(*args,file=folder+"log")
+                lv.pp(*args,file=folder+"log")
             else:
                 pass
 
@@ -100,26 +84,34 @@ def dashTupleFromGraph(df,layoutFunction,folder,verbose = True,**kwargs):
         pickle.dump(dashTuple,file)
     P("Saving Done! Finished",now(),now()-startTime)
 #%%
-with open("Data/codice_civile.codice","b+r") as cc:
+with open("Data/Codici/codice_civile.codice","b+r") as cc:
     df = pd.DataFrame(pickle.load(cc))
-
-dashTupleFromGraph(df,nx.spring_layout,"Data/Graph_tests/",verbose=True,
-                   **{"secondary_weight":1,
-                    "primary_weight":1})
-dashTupleFromGraph(df,nx.spring_layout,"Data/Graph_tests/",verbose=True,
-                   **{"secondary_weight":1,
-                    "primary_weight":0.5})
-dashTupleFromGraph(df,nx.spring_layout,"Data/Graph_tests/",verbose=True,
-                   **{"secondary_weight":1,
-                    "primary_weight":0.1})
-dashTupleFromGraph(df,nx.kamada_kawai_layout,"Data/Graph_tests/",verbose=True,
-                   **{"secondary_weight":1,
-                    "primary_weight":1})
-dashTupleFromGraph(df,nx.kamada_kawai_layout,"Data/Graph_tests/",verbose=True,
-                   **{"secondary_weight":1,
-                    "primary_weight":0.5})
-dashTupleFromGraph(df,nx.kamada_kawai_layout,"Data/Graph_tests/",verbose=True,
-                   **{"secondary_weight":1,
-                    "primary_weight":0.1})
-                   
-                   
+#%% old gnerator 
+#dashTupleFromGraph(df,nx.spring_layout,"Data/Graph_tests/",verbose=True,
+#                   **{"secondary_weight":1,
+#                    "primary_weight":1})
+#dashTupleFromGraph(df,nx.spring_layout,"Data/Graph_tests/",verbose=True,
+#                   **{"secondary_weight":1,
+#                    "primary_weight":0.5})
+#dashTupleFromGraph(df,nx.spring_layout,"Data/Graph_tests/",verbose=True,
+#                   **{"secondary_weight":1,
+#                    "primary_weight":0.1})
+#dashTupleFromGraph(df,nx.kamada_kawai_layout,"Data/Graph_tests/",verbose=True,
+#                   **{"secondary_weight":1,
+#                    "primary_weight":1})
+#dashTupleFromGraph(df,nx.kamada_kawai_layout,"Data/Graph_tests/",verbose=True,
+#                   **{"secondary_weight":1,
+#                    "primary_weight":0.5})
+#dashTupleFromGraph(df,nx.kamada_kawai_layout,"Data/Graph_tests/",verbose=True,
+#                   **{"secondary_weight":1,
+#                    "primary_weight":0.1})
+#%%
+G = nx.Graph()
+lv.populateGraph(G,df)
+#%%WORK IN PROGRESS
+#maxlen = 0
+#for n in G.nodes():
+#    if len(n)>naxlen:
+#        maxlen = len(n)
+#processed = []
+#while len(processed) < 3637:

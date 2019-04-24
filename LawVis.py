@@ -20,6 +20,23 @@ import networkx as nx
     6) load and use
     """
 #%%
+def pp(*args,**kwargs):
+    """Prints *args as the standard print but also appends an entry to the only 
+    kwarg possible: "file", that is opend in append mode, also records the 
+    time of the entry"""
+    try:
+        if "file" in kwargs:
+            file = kwargs["file"]
+    except:
+        pass
+    print(*args)
+    with open(file,"a") as f:
+        f.write("-Entry- "+str(now())+"\n")
+        for a in args:
+            f.write(str(a)+" ")
+        else:
+            f.write("\n")
+#%%
 
 def crawlBoccardi(link,raw=True,links = True, complex_ = False):
     """function that takes the link of the page and returns a tuple with a 
@@ -190,8 +207,10 @@ def addItemAsNode(G,link_or_tuple,ToPathDict,weight=1):
                 pass
 #%%
 #actual population of the network
-def populateGraph(G,df,ToPathDict,weight=1,verbose=False):
+def populateGraph(G,df,ToPathDict=None,weight=1,verbose=False):
     print("Starting to populate graph...")
+    if ToPathDict == None:
+        ToPathDict = genRawToPathDict(df)
     if verbose:
         print("Mode is verbose")
     for link in df["link"]:

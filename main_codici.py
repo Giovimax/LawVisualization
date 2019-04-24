@@ -11,8 +11,7 @@ from os import listdir
 import pandas as pd
 import LawVis as lv
 import networkx as nx
-#%%
-#retrieving data and creating df
+#%%retrieving data and creating df
 DataFolder = "Data/"
 if "df" not in listdir(DataFolder):
     full_list = []
