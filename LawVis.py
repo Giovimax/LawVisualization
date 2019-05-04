@@ -164,7 +164,8 @@ def rawToPath(rawlist,rawToPatDict):
 
 def linkToTouples(link):
     """Takes the link and creates a LIST of TUPLES tha that is shaped like this:
-        link = "/codice-di-procedura-civile/libro-primo/titolo-v/art112.html"
+        link = "https://www.brocardi.it
+        /codice-di-procedura-civile/libro-primo/titolo-v/art112.html"
         out = [('codice-di-procedura-civile',),
          ('codice-di-procedura-civile', 'libro-primo'),
          ('codice-di-procedura-civile', 'libro-primo', 'titolo-v'),
@@ -193,18 +194,18 @@ def addItemAsNode(G,link_or_tuple,ToPathDict,weight=1):
     of the actutual path of the single object"""        
     for n, node in enumerate(iterable): #each tuple in the list can be a nodelinksFromCommi
         #for each possible node
-        if node not in G.nodes:
-            #name part
-            name = None
-            if node[-1] in ToPathDict: #sets the name as pretty name if possible
-                name = ToPathDict[node[-1]]
-            #adding node
-            G.add_node(node,name=name)
-            #creating edges
-            if n != 0:
-                G.add_edge(node,iterable[n-1],weight=weight)
-            else:
-                pass
+
+        #name part
+        name = None
+        if node[-1] in ToPathDict: #sets the name as pretty name if possible
+            name = ToPathDict[node[-1]]
+        #adding node
+#        print(n,node,type(node))
+        G.add_node(node,name=name)
+        #creating edges
+        if n != 0:
+            G.add_edge(node,iterable[n-1],weight=weight)
+
 #%%
 #actual population of the network
 def populateGraph(G,df,ToPathDict=None,weight=1,verbose=False):
