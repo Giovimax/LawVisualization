@@ -123,6 +123,8 @@ def populateGraphRaw(G,df,ToPathDict):
         G.add_node(node,name=name)
 
 #%%
+populateGraphRaw(G,df,RawToPathDict)
+#%%
 a = dict()
 for node in G.nodes():
     for n,i in enumerate(node[:-1]):
@@ -133,3 +135,16 @@ for node in G.nodes():
             a[n]=[i]
 #%%
 #I want to create a way to color the nodes 
+for nodeA in G.nodes:
+    for nodeB in G.nodes:
+        shared = 0
+        if nodeA != nodeB:
+            for i in nodeA:
+                if i in nodeB:
+                    shared+=1
+            if shared > 0:
+                G.add_edge(nodeA,nodeB,weight=shared)
+
+#%%
+pos = nx.kamada_kawai_layout(G)
+                
