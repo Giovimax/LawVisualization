@@ -178,13 +178,17 @@ if __name__=="__main__":
 #    #                raise ValueError
 #%%
     graphDict = dict()
-    for i in listdir("Data/Graph_tests"):
-        if i != "log":
-            with open("Data/Graph_tests/%s"%i,"b+r") as f:
-                print("Loading %s"%i)
-                graphDict[i] = pickle.load(f)
 
-    
+#TO OPEN ALL FILES IN Data/Graph_tests
+#    for i in listdir("Data/Graph_tests"):
+#        if i != "log":
+#            with open("Data/Graph_tests/%s"%i,"b+r") as f:
+#                print("Loading %s"%i)
+#                graphDict[i] = pickle.load(f)
+
+    with open("Data/newMethodTestDash","b+r") as f:
+        print("Loading...")
+        graphDict["newMethodTestDash"] = pickle.load(f)
     
 
     #%%

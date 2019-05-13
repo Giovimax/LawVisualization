@@ -10,6 +10,8 @@ import bs4 as bs
 import pandas as pd 
 import requests as re
 import networkx as nx 
+import datetime
+now = datetime.datetime.now 
 #%% GUIDES
 """the proces from the df to the complete graph goes like this:
     1)create a rawToPatDict from the function genRawToPathDict

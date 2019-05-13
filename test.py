@@ -13,6 +13,7 @@ import networkx as nx
 import pickle 
 from os import listdir
 from time import sleep
+import Dash
 #%%
 """brief instructions:
     the program automatically searches for all.txt and tries to load it, this 
@@ -112,7 +113,13 @@ def importCodes(*args,df=True,G=True):
 #lv.populateGraph(G,df,RawToPathDict)
 #lv.linksFromCommi(G,df,RawToPathDict,weight=1)
 #%%
+def p(*args):
+    lv.pp(*args,file="log.txt")
+
+#%%
+p("Creating df, G, RawToPathDict")
 df, G, RawToPathDict = importCodes("codice_civile.codice")
+p("Done")
 #%%
 def populateGraphRaw(G,df,ToPathDict):
     for linkList in df["path_from_link"]:
@@ -123,17 +130,21 @@ def populateGraphRaw(G,df,ToPathDict):
         G.add_node(node,name=name)
 
 #%%
+p("Populating graph...")
 populateGraphRaw(G,df,RawToPathDict)
+p("Done.")
 #%%
-a = dict()
-for node in G.nodes():
-    for n,i in enumerate(node[:-1]):
-        try:
-            if i not in a[n]:
-                a[n].append(i)
-        except:
-            a[n]=[i]
+
+#a = dict()
+#for node in G.nodes():
+#    for n,i in enumerate(node[:-1]):
+#        try:
+#            if i not in a[n]:
+#                a[n].append(i)
+#        except:
+#            a[n]=[i]
 #%%
+p("Adding edges.")
 #I want to create a way to color the nodes 
 for nodeA in G.nodes:
     for nodeB in G.nodes:
@@ -144,7 +155,23 @@ for nodeA in G.nodes:
                     shared+=1
             if shared > 0:
                 G.add_edge(nodeA,nodeB,weight=shared)
+p("Done.")
+#%%
+p("Calculating positions...")
+pos = nx.kamada_kawai_layout(G)
+p("Done.")              
+#%%
+p("Saving Data/newMethodTest ...")
+with open("Data/newMethodTest","b+w") as f:
+    pickle.dump(pos,f)
+p("Saving Done.")
+
+#%%Setting pos as attribute
+nx.set_node_attributes(G,pos,name="pos")
 
 #%%
-pos = nx.kamada_kawai_layout(G)
-                
+p("Starting dashification and saving...")
+tosave = Dash.dashify(G)
+with open("Data/newMethodTestDash","b+w") as f:
+    pickle.dump(tosave,f)
+p("Done.")
