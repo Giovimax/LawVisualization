@@ -167,6 +167,11 @@ with open("Data/newMethodTest","b+w") as f:
 p("Saving Done.")
 
 #%%Setting pos as attribute
+try:
+    pos
+except:
+    with open("Data/newMethodTest","b+r") as f:
+        pos = pickle.load(f)
 nx.set_node_attributes(G,pos,name="pos")
 
 #%%
