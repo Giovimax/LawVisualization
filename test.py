@@ -14,6 +14,8 @@ import pickle
 from os import listdir
 from time import sleep
 import Dash
+from numpy import sin, cos, deg2rad
+from matplotlib.colors import to_hex
 #%%
 """brief instructions:
     the program automatically searches for all.txt and tries to load it, this 
@@ -114,6 +116,10 @@ def importCodes(*args,df=True,G=True):
 #lv.linksFromCommi(G,df,RawToPathDict,weight=1)
 #%%
 def p(*args):
+    print(*args)
+
+#%%
+def p(*args):
     lv.pp(*args,file="log.txt")
 
 #%%
@@ -180,3 +186,31 @@ tosave = Dash.dashify(G)
 with open("Data/newMethodTestDash","b+w") as f:
     pickle.dump(tosave,f)
 p("Done.")
+
+#%% Color assignment
+#(R, G, B) = (256*cos(x), 256*cos(x + 120), 256*cos(x - 120))
+entPerLib = dict() #dict with the number of entries for each book 
+for i in df["path_from_link"]:
+    i = tuple(i[1:2])
+    if i not in entPerLib.keys():
+        entPerLib[i]= 1
+    else:
+        entPerLib[i] += 1
+entPerLib = pd.Series(entPerLib)
+totEnt = entPerLib.sum()
+entPerLib = entPerLib.apply(lambda x: x/totEnt*360)
+cumulative = 0
+for i in entPerLib.keys():
+    cumulative += entPerLib[i]
+    entPerLib[i] = cumulative
+#%%
+def toHEX(x):
+    #TODO: review this function, probably it does not work
+    x = deg2rad(x)
+#    print(x)
+    rgb = tuple([i for i in map(lambda x: int(128+round(x*128)), [cos(x), cos(x + 120), cos(x - 120)])])
+#    print(rgb)
+    toret = '#%02x%02x%02x' % rgb
+    return toret[:7]
+#%%
+colourScheme = entPerLib.apply(toHEX)
