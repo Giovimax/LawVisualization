@@ -21,6 +21,9 @@ from os import listdir
 
 #%%
 def dashify(G,):
+    """Creates objects for the dash app"""
+    #original text of layout
+    "Python code: <a href='https://plot.ly/ipython-notebooks/network-graphs/'> https://plot.ly/ipython-notebooks/network-graphs/</a>"
     #finds center of the graph
     dmin=1
     ncenter=[i for i in G.nodes][0]
@@ -42,28 +45,20 @@ def dashify(G,):
         line=dict(width=0.5,color='#888'),
         hoverinfo='none',
         mode='lines')
-    edge_trace2 = go.Scatter(
-        x=[],
-        y=[],
-        line=dict(width=0.5,color='coral'),
-        hoverinfo='none',
-        mode='lines')
+        
+    #TODO: Verify if it's worth using 
     #populationg
-    for edge in G.edges():
-        #gets coordinates of the two nodes
-        x0, y0 = G.node[edge[0]]['pos']
-        x1, y1 = G.node[edge[1]]['pos']
-        weight = G.edges[edge]["weight"]
-        if weight == 1 :
-            #adds x,y data, 
-            #they pair since the index will be the same for x0,y0 and x1,y1
-            edge_trace['x'] += tuple([x0, x1, None])
-            edge_trace['y'] += tuple([y0, y1, None])
-        else:
-            #adds x,y data, 
-            #they pair since the index will be the same for x0,y0 and x1,y1
-            edge_trace2['x'] += tuple([x0, x1, None])
-            edge_trace2['y'] += tuple([y0, y1, None])
+#    for edge in G.edges():
+#        #gets coordinates of the two nodes
+#        x0, y0 = G.node[edge[0]]['pos']
+#        x1, y1 = G.node[edge[1]]['pos']
+#        weight = G.edges[edge]["weight"]
+#
+#        #adds x,y data, 
+#        #they pair since the index will be the same for x0,y0 and x1,y1
+#        edge_trace['x'] += tuple([x0, x1, None])
+#        edge_trace['y'] += tuple([y0, y1, None])
+
     
     #NODE TRACE
     #crating dataStructure
@@ -103,12 +98,13 @@ def dashify(G,):
         node_trace['x'] += tuple([x])
         node_trace['y'] += tuple([y])
         node_trace["text"] += tuple([namer(node)])
+    #TODO: Verify if it's worth using 
     #color and text
-    for node, adjacencies in enumerate(G.adjacency()):
-        node_trace['marker']['color']+=tuple([len(adjacencies[1])])
-#        node_info = '# of connections: '+str(len(adjacencies[1]))
-    #    node_trace['text']+=tuple([node_info])
-    #FIGURE, static 
+#    for node, adjacencies in enumerate(G.adjacency()):
+#        node_trace['marker']['color']+=tuple([len(adjacencies[1])])
+##        node_info = '# of connections: '+str(len(adjacencies[1]))
+#    #    node_trace['text']+=tuple([node_info])
+#    #FIGURE, static 
     #creating toreturn components
     data=[edge_trace, node_trace]
     layout=go.Layout(
@@ -118,7 +114,7 @@ def dashify(G,):
                     hovermode='closest',
                     margin=dict(b=20,l=5,r=5,t=40),
                     annotations=[ dict(
-                        text="Python code: <a href='https://plot.ly/ipython-notebooks/network-graphs/'> https://plot.ly/ipython-notebooks/network-graphs/</a>",
+                        text="Test of the graphs",
                         showarrow=False,
                         xref="paper", yref="paper",
                         x=0.005, y=-0.002 ) ],
