@@ -15,7 +15,6 @@ from os import listdir
 from time import sleep
 import Dash
 from numpy import sin, cos, deg2rad
-from matplotlib.colors import to_hex
 #%%
 """brief instructions:
     the program automatically searches for all.txt and tries to load it, this 
@@ -25,63 +24,14 @@ from matplotlib.colors import to_hex
     The code can function with the while: and the flag "status" or with the 
     for loop with the range funct if only a fraction of the articles is needed.
 """
-#try:
-#    link,todf
-#except:
-#    link = ['https://www.brocardi.it/codice-civile/libro-primo/titolo-i/art1.html']
-#    todf = []
-#
-#if "all.txt" not in listdir("Data/"):
-#    print("no all.txt, creating and dumping")
-#    #safety mesure        
-#    status = True#flag for the while:
-#    
-#    while status:
-##    for i in range(10):
-#        item = lv.crawlBoccardi(link[-1],raw = False, complex_=True)
-#        sleep(0.1)
-#        todf.append(item[0])
-#        if item[1] == False:
-#            status = False
-#        else:
-#            link.append(item[1])
-#        print(item[0]["path"][-1])
-#    print("finished")
-#    df = pd.DataFrame(todf)
-#    
-#    with open("all.txt","b+w") as file:
-#        pickle.dump(df,file)
-#else:
-#    print("loading all.txt")
-#    with open("Data/all.txt","b+r") as file:
-#        df = pickle.load(file)
-#        
-#
 
 #%%
-#CREATION OF THE NETWORK OBJECT
-#g = nx.Graph()
-#
-##%%
-#rawToPatDict = lv.genRawToPathDict(df)
-##%%
-#
+
 ## FIXME: ?
 ## XXX: ?
 ## HINT: ?
 ## TIP: ?
 ##@todo: ?
-#
-##advanced method with function
-#lv.populateGraph(g,df,rawToPatDict)
-# 
-#
-#
-##%%
-#lv.linksFromCommi(g,df,rawToPatDict)
-##%%
-#print("Drawing...")
-#nx.draw(g, with_labels=False)
 
 #%%new stuff
 def importCodes(*args,df=True,G=True):
@@ -97,7 +47,7 @@ def importCodes(*args,df=True,G=True):
         if G:
             G = nx.Graph()
             RawToPathDict = lv.genRawToPathDict(df)
-#            lv.populateGraph(G,df,RawToPathDict)
+            lv.populateGraph(G,df,RawToPathDict)
 #            lv.linksFromCommi(G,df,RawToPathDict,weight=1)
     else:
         return allList
@@ -114,28 +64,21 @@ def importCodes(*args,df=True,G=True):
 #RawToPathDict = lv.genRawToPathDict(df)
 #lv.populateGraph(G,df,RawToPathDict)
 #lv.linksFromCommi(G,df,RawToPathDict,weight=1)
-#%%
+#%% p plain
 def p(*args):
     print(*args)
 
-#%%
+#%% p complete
 def p(*args):
     lv.pp(*args,file="log.txt")
 
-#%%
+#%%Creating df, G, RawToPathDict
 p("Creating df, G, RawToPathDict")
 df, G, RawToPathDict = importCodes("codice_civile.codice")
 p("Done")
-#%%
-def populateGraphRaw(G,df,ToPathDict):
-    for linkList in df["path_from_link"]:
-        node = tuple(linkList)
-        name = None
-        if node[-1] in ToPathDict: #sets the name as pretty name if possible
-            name = ToPathDict[node[-1]]
-        G.add_node(node,name=name)
 
-#%%
+
+#%%Populating graph...
 p("Populating graph...")
 populateGraphRaw(G,df,RawToPathDict)
 p("Done.")
@@ -149,7 +92,7 @@ p("Done.")
 #                a[n].append(i)
 #        except:
 #            a[n]=[i]
-#%%
+#%%Adding edges.
 p("Adding edges.")
 #I want to create a way to color the nodes 
 for nodeA in G.nodes:
@@ -162,11 +105,11 @@ for nodeA in G.nodes:
             if shared > 0:
                 G.add_edge(nodeA,nodeB,weight=shared)
 p("Done.")
-#%%
+#%%Calculating positions
 p("Calculating positions...")
 pos = nx.kamada_kawai_layout(G)
 p("Done.")              
-#%%
+#%%Saving Data/newMethodTest ...
 p("Saving Data/newMethodTest ...")
 with open("Data/newMethodTest","b+w") as f:
     pickle.dump(pos,f)
@@ -180,7 +123,7 @@ except:
         pos = pickle.load(f)
 nx.set_node_attributes(G,pos,name="pos")
 
-#%%
+#%%Starting dashification and saving...
 p("Starting dashification and saving...")
 tosave = Dash.dashify(G)
 with open("Data/newMethodTestDash","b+w") as f:
@@ -203,7 +146,7 @@ cumulative = 0
 for i in entPerLib.keys():
     cumulative += entPerLib[i]
     entPerLib[i] = cumulative
-#%%
+#%% toHEX function
 def toHEX(x):
     #TODO: review this function, probably it does not work
     x = deg2rad(x)
@@ -214,3 +157,5 @@ def toHEX(x):
     return toret[:7]
 #%%
 colourScheme = entPerLib.apply(toHEX)
+
+#

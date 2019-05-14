@@ -222,7 +222,18 @@ def populateGraph(G,df,ToPathDict=None,weight=1,verbose=False):
             print("added %s"%link)
     print("Finished populating.")
 
-#%%
+#%%def populateGraphRaw(G,df,ToPathDict):
+def populateGraphRaw(G,df,ToPathDict):
+    """Simply ads each item from path_from_link to the graph, and also sets
+    a pretty name if possible by using ToPathDict"""
+    for linkList in df["path_from_link"]:
+        node = tuple(linkList)
+        name = None
+        if node[-1] in ToPathDict: #sets the name as pretty name if possible
+            name = ToPathDict[node[-1]]
+        G.add_node(node,name=name)
+        
+#%%def linksFromCommi(g,df,rawToPatDict,weight=0.5):
 def linksFromCommi(g,df,rawToPatDict,weight=0.5):
     """the infamous function that creates lower ranked nodes from the links in 
     the text of each article"""
@@ -236,12 +247,13 @@ def linksFromCommi(g,df,rawToPatDict,weight=0.5):
                     tupleFromLink = linkToTouples(linkFromList)#
                     #recreates the main path
                     if tupleFromLink[-1] not in g.nodes:
-                        addItemAsNode(g,tupleFromLink,rawToPatDict)
+                        addItemAsNode(g, tupleFromLink, rawToPatDict)
                     else:
                         pass
                     g.add_edge(tupleFromLink[-1],linkToTouples(itemLink)[-1],weight=weight)
             pass
         pass
+
 
 #%%
 if __name__=="__main__":
