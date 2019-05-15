@@ -20,7 +20,7 @@ from os import listdir
 
 
 #%%
-def dashify(G,):
+def dashify(G,colourScheme=None):
     """Creates objects for the dash app"""
     #original text of layout
     "Python code: <a href='https://plot.ly/ipython-notebooks/network-graphs/'> https://plot.ly/ipython-notebooks/network-graphs/</a>"
@@ -78,13 +78,13 @@ def dashify(G,):
             reversescale=True,
             color=[],
             size=5,
-            colorbar=dict(
-                thickness=15,
-                title='Node Connections',
-                xanchor='left',
-                titleside='right'
-            ),
-            line=dict(width=1)))
+#            colorbar=dict(
+#                thickness=15,
+#                title='Node Connections',
+#                xanchor='left',
+#                titleside='right'
+#            ),
+            line=dict(width=0.1)))
     #ad hoc function to assign names
     def namer(node):
         name = G.nodes[node]["name"]
@@ -105,6 +105,14 @@ def dashify(G,):
 ##        node_info = '# of connections: '+str(len(adjacencies[1]))
 #    #    node_trace['text']+=tuple([node_info])
 #    #FIGURE, static 
+
+    #testing coloring function
+    for node in G.nodes():
+        relevant = node[1:3]
+        try:
+            node_trace["marker"]["color"] += tuple([colourScheme[relevant]])
+        except Exception:
+            raise Exception
     #creating toreturn components
     data=[edge_trace, node_trace]
     layout=go.Layout(
@@ -175,18 +183,20 @@ if __name__=="__main__":
 #%%
     graphDict = dict()
 
-#TO OPEN ALL FILES IN Data/Graph_tests
+##TO OPEN ALL FILES IN Data/Graph_tests
 #    for i in listdir("Data/Graph_tests"):
 #        if i != "log":
 #            with open("Data/Graph_tests/%s"%i,"b+r") as f:
 #                print("Loading %s"%i)
 #                graphDict[i] = pickle.load(f)
-
+#
+#    with open("Data/newMethodTestDash","b+r") as f:
+#        print("Loading...")
+#        graphDict["newMethodTestDash"] = pickle.load(f)
     with open("Data/newMethodTestDash","b+r") as f:
-        print("Loading...")
-        graphDict["newMethodTestDash"] = pickle.load(f)
-    
-
+        dashObj = pickle.load(f)
+#    
+    graphDict["newMethodTestDash"]= dashObj
     #%%
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']#import style
     app = dash.Dash(external_stylesheets=external_stylesheets)
