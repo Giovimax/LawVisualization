@@ -47,7 +47,7 @@ def importCodes(*args,df=True,G=True):
         if G:
             G = nx.Graph()
             RawToPathDict = lv.genRawToPathDict(df)
-            lv.populateGraph(G,df,RawToPathDict)
+            lv.populateGraphRaw(G,df,RawToPathDict)
 #            lv.linksFromCommi(G,df,RawToPathDict,weight=1)
     else:
         return allList
@@ -140,6 +140,7 @@ except:
 nx.set_node_attributes(G,values=posDict,name="pos")
 p("Done")
 #%%Quick fix for broken nodes
+#TODO: the issue should have been fixed by the change of populating function, VERIFY IT
 posCheck = dict(pos=[],noPos=[])
 for node in G.nodes:
     try:
