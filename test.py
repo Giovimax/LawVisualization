@@ -54,13 +54,13 @@ def importCodes(*args,df=True,G=True):
     return (df,G,RawToPathDict)
 
 #%% def colourSchemeMaker(df):
-def colourSchemeMaker(df):
+def colourSchemeMaker(df,subCategories=2):
     """Takes the df and produces a dict with a colour related to a relevant
     portion of the path"""
 
     # toHEX function
     def toHEX(x):
-        #TODO: review this function, probably it does not work
+        #TODO: implement with https://pypi.org/project/colorutils/
         x = deg2rad(x)
     #    print(x)
         rgb = tuple([i for i in map(lambda x: int(128+round(x*128)), [cos(x), cos(x + 120), cos(x - 120)])])
@@ -73,7 +73,7 @@ def colourSchemeMaker(df):
     entPerLib = dict() #dict with the number of entries for each book 
     for path in df["path_from_link"]:
     #    print(path)
-        path = tuple(path[1:3])#selects the first two relevant parts of the path
+        path = tuple(path[1:subCategories+1])#selects the first two relevant parts of the path
     #    print(path)
         if path not in entPerLib.keys():
             entPerLib[path]= 1
@@ -152,11 +152,11 @@ for node in G.nodes:
 G.remove_nodes_from(posCheck["noPos"])#removes the nodes
 
 #%%Creating colour scheme
-colourScheme = colourSchemeMaker(df)
+colourScheme = colourSchemeMaker(df,1)
 #%%Starting dashification and saving...
 p("Starting dashification and saving...")
 tosave = Dash.dashify(G,colourScheme)
-with open("Data/newMethodTestDash","b+w") as f:
+with open("Data/newMethodTestDash_1","b+w") as f:
     pickle.dump(tosave,f)
 p("Done.")
 
@@ -166,4 +166,42 @@ p("Done.")
 class codeObj():
     def __init__():
         pass
+    pass
+
+#%%
+#TODO: make sense of this mess
+Gsimplified = nx.Graph()#creating new graph
+simplifiedNodes = {} #container for node congregations
+for node in G.nodes:
+    relNode = node[1:3]#selects only macro category of nodes
+    if relNode not in simplifiedNodes:
+        simplifiedNodes[relNode] = {"size":1,}#adds a dictionary with a counter
+    else:
+        simplifiedNodes[relNode]["size"] += 1#simply updates the counter
+        
+for node in simplifiedNodes:#populates the graph with nodes
+    Gsimplified.add_node(node,size=simplifiedNodes[node]["size"])
+
+#%%
+for i in simplifiedNodes:
+    simplifiedNodes[i]["links"] = {}#creates a dict to store the number of links 
+    
+for row in df.loc[:,:]:
+    linkList =[]#stores the prepared links from the notes
+    for link in row["link_commi"]:
+        if "dizionario" not in link and "nota" not in link and "codice-civile"  in link:#selecting only relevant links
+            link = tuple(lv.clearLink(link))[1:3]#cuts useless part
+            linkList.append(link)#ads to list
+    path = row["path_from_link"][1:3]#selects simplifiedNodes key for this row
+    for link in linkList:#dumps links into simplifiedNodes
+        #saves the number of links 
+        if link in simplifiedNodes[path]["links"]:#nel sottogruppo del nodo corrente
+            simplifiedNodes[path]["links"][link] +=1
+        else:
+            simplifiedNodes[path]["links"][link] =1
+    pass
+#%%
+dfKeyed = df.set_index()
+for node in simplifiedNodes:
+    
     pass

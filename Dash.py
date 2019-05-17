@@ -193,10 +193,11 @@ if __name__=="__main__":
 #    with open("Data/newMethodTestDash","b+r") as f:
 #        print("Loading...")
 #        graphDict["newMethodTestDash"] = pickle.load(f)
-    with open("Data/newMethodTestDash","b+r") as f:
+    fileName = "Data/newMethodTestDash_1"
+    with open(fileName,"b+r") as f:
         dashObj = pickle.load(f)
 #    
-    graphDict["newMethodTestDash"]= dashObj
+    graphDict[fileName]= dashObj
     #%%
     external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']#import style
     app = dash.Dash(external_stylesheets=external_stylesheets)
