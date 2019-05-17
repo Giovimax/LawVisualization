@@ -15,6 +15,7 @@ from os import listdir
 from time import sleep
 import Dash
 from numpy import sin, cos, deg2rad
+import colorutils
 #%%
 """brief instructions:
     the program automatically searches for all.txt and tries to load it, this 
@@ -59,14 +60,9 @@ def colourSchemeMaker(df,subCategories=2):
     portion of the path"""
 
     # toHEX function
-    def toHEX(x):
-        #TODO: implement with https://pypi.org/project/colorutils/
-        x = deg2rad(x)
-    #    print(x)
-        rgb = tuple([i for i in map(lambda x: int(128+round(x*128)), [cos(x), cos(x + 120), cos(x - 120)])])
-    #    print(rgb)
-        toret = '#%02x%02x%02x' % rgb
-        return toret[:7]
+    def toHEX(deg):
+        c = colorutils.Color(hsv=(deg,1,1))
+        return c.hex
 
     #Color assignment
     #(R, G, B) = (256*cos(x), 256*cos(x + 120), 256*cos(x - 120))
@@ -201,7 +197,3 @@ for row in df.loc[:,:]:
             simplifiedNodes[path]["links"][link] =1
     pass
 #%%
-dfKeyed = df.set_index()
-for node in simplifiedNodes:
-    
-    pass
