@@ -36,6 +36,8 @@ import colorutils
 
 #%%new stuff
 def importCodes(*args,df=True,G=True):
+    #TODO: add the option to load multiple codes
+    """Imports a SINGLE CODE from the data"""
     Codici = "Data/Codici/"
     allList = []
     RawToPathDict = False
@@ -105,15 +107,20 @@ p("Done")
 #%%Adding edges.
 p("Adding edges.")
 #I want to create a way to color the nodes 
-for nodeA in G.nodes:
-    for nodeB in G.nodes:
-        shared = 0
-        if nodeA != nodeB:
-            for i in nodeA:
-                if i in nodeB:
-                    shared+=1
-            if shared > 0:
-                G.add_edge(nodeA,nodeB,weight=shared)
+def addWeightedEdges(G):
+    """Adds an edge between each node wieghted by the number of shared 
+    subcategories so that the weight is highter the more close in the book the 
+    articles are"""
+    for nodeA in G.nodes:
+        for nodeB in G.nodes:
+            shared = 0
+            if nodeA != nodeB:
+                for i in nodeA:
+                    if i in nodeB:
+                        shared+=1
+                if shared > 0:
+                    G.add_edge(nodeA,nodeB,weight=shared)
+
 p("Done.")
 ##%%Calculating positions
 #p("Calculating positions...")
@@ -165,35 +172,35 @@ class codeObj():
     pass
 
 #%%
-#TODO: make sense of this mess
-Gsimplified = nx.Graph()#creating new graph
-simplifiedNodes = {} #container for node congregations
-for node in G.nodes:
-    relNode = node[1:3]#selects only macro category of nodes
-    if relNode not in simplifiedNodes:
-        simplifiedNodes[relNode] = {"size":1,}#adds a dictionary with a counter
-    else:
-        simplifiedNodes[relNode]["size"] += 1#simply updates the counter
-        
-for node in simplifiedNodes:#populates the graph with nodes
-    Gsimplified.add_node(node,size=simplifiedNodes[node]["size"])
-
-#%%
-for i in simplifiedNodes:
-    simplifiedNodes[i]["links"] = {}#creates a dict to store the number of links 
-    
-for row in df.loc[:,:]:
-    linkList =[]#stores the prepared links from the notes
-    for link in row["link_commi"]:
-        if "dizionario" not in link and "nota" not in link and "codice-civile"  in link:#selecting only relevant links
-            link = tuple(lv.clearLink(link))[1:3]#cuts useless part
-            linkList.append(link)#ads to list
-    path = row["path_from_link"][1:3]#selects simplifiedNodes key for this row
-    for link in linkList:#dumps links into simplifiedNodes
-        #saves the number of links 
-        if link in simplifiedNodes[path]["links"]:#nel sottogruppo del nodo corrente
-            simplifiedNodes[path]["links"][link] +=1
-        else:
-            simplifiedNodes[path]["links"][link] =1
-    pass
+##TODO: make sense of this mess
+#Gsimplified = nx.Graph()#creating new graph
+#simplifiedNodes = {} #container for node congregations
+#for node in G.nodes:
+#    relNode = node[1:3]#selects only macro category of nodes
+#    if relNode not in simplifiedNodes:
+#        simplifiedNodes[relNode] = {"size":1,}#adds a dictionary with a counter
+#    else:
+#        simplifiedNodes[relNode]["size"] += 1#simply updates the counter
+#        
+#for node in simplifiedNodes:#populates the graph with nodes
+#    Gsimplified.add_node(node,size=simplifiedNodes[node]["size"])
+#
+##%%
+#for i in simplifiedNodes:
+#    simplifiedNodes[i]["links"] = {}#creates a dict to store the number of links 
+#    
+#for row in df.loc[:,:]:
+#    linkList =[]#stores the prepared links from the notes
+#    for link in row["link_commi"]:
+#        if "dizionario" not in link and "nota" not in link and "codice-civile"  in link:#selecting only relevant links
+#            link = tuple(lv.clearLink(link))[1:3]#cuts useless part
+#            linkList.append(link)#ads to list
+#    path = row["path_from_link"][1:3]#selects simplifiedNodes key for this row
+#    for link in linkList:#dumps links into simplifiedNodes
+#        #saves the number of links 
+#        if link in simplifiedNodes[path]["links"]:#nel sottogruppo del nodo corrente
+#            simplifiedNodes[path]["links"][link] +=1
+#        else:
+#            simplifiedNodes[path]["links"][link] =1
+#    pass
 #%%
