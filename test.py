@@ -223,3 +223,8 @@ for n, i in enumerate(ll):
     testdf[n]=i
 
 testdf = testdf.set_index([0,1,2,3,4])
+
+def artToIndex(art):
+    """Thakes the raw name of the article and transforms it into a tuple 
+    that can be used with the dataframe"""
+    return (slice(None),slice(None),slice(None),slice(None),art)
