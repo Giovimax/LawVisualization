@@ -89,9 +89,9 @@ def colourSchemeMaker(df,subCategories=2):
 def p(*args):
     print(*args)
 
-#%% p complete
-def p(*args):
-    lv.pp(*args,file="log.txt")
+##%% p complete
+#def p(*args):
+#    lv.pp(*args,file="log.txt")
 
 #%%Creating df, G, RawToPathDict
 p("Creating df, G, RawToPathDict")
@@ -120,7 +120,7 @@ def addWeightedEdges(G):
                         shared+=1
                 if shared > 0:
                     G.add_edge(nodeA,nodeB,weight=shared)
-
+addWeightedEdges(G)
 p("Done.")
 ##%%Calculating positions
 #p("Calculating positions...")
@@ -154,22 +154,15 @@ for node in G.nodes:
         
 G.remove_nodes_from(posCheck["noPos"])#removes the nodes
 
-#%%Creating colour scheme
-colourScheme = colourSchemeMaker(df,1)
-#%%Starting dashification and saving...
-p("Starting dashification and saving...")
-tosave = Dash.dashify(G,colourScheme)
-with open("Data/newMethodTestDash_1","b+w") as f:
-    pickle.dump(tosave,f)
-p("Done.")
-
-
-
-#%%
-class codeObj():
-    def __init__():
-        pass
-    pass
+##%%Creating colour scheme
+#colourScheme = colourSchemeMaker(df,1)
+##%%Starting dashification and saving...
+#p("Starting dashification and saving...")
+#tosave = Dash.dashify(G,colourScheme)
+#with open("Data/newMethodTestDash_1","b+w") as f:
+#    pickle.dump(tosave,f)
+#p("Done.")
+#
 
 #%%
 ##TODO: make sense of this mess
@@ -204,3 +197,29 @@ class codeObj():
 #            simplifiedNodes[path]["links"][link] =1
 #    pass
 #%%
+"""Plan to update df:
+    create enought lists to fitt all the levels
+    create a list for each level of the path 
+    for each row add 
+    add the lists as co
+    """
+ll = [[] for i in range(5)]#list of all the lists
+for path_from_link in df.iloc[:,5]:#for row in path_from_link
+    core = path_from_link[1:-1]
+    for n in range(4):
+        try:
+            ll[n].append(core[n])
+        except:
+            ll[n].append(None)
+    ll[-1].append(path_from_link[-1])
+    
+#%%
+try:
+    copy
+except:
+    from copy import copy
+testdf = copy(df)
+for n, i in enumerate(ll):
+    testdf[n]=i
+
+testdf = testdf.set_index([0,1,2,3,4])
