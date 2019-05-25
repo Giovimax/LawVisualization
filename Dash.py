@@ -108,7 +108,7 @@ def dashify(G,colourScheme=None,createEdges=False):
 #    #FIGURE, static 
 
     #testing coloring function
-    if colourScheme != None:
+    if type(colourScheme) == "pandas.core.series.Series":
         for node in G.nodes():
             relevant = node[slice(0,1)]
             try:
