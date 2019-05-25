@@ -57,10 +57,10 @@ def importCodes(*args,df=True,G=True):
     return (df,G,RawToPathDict)
 
 #%% def colourSchemeMaker(df):
-def colourSchemeMaker(df,subCategories=2):
+def colourSchemeMaker(df,subCategoriesSlice=slice(1,3)):
     """Takes the df and produces a dict with a colour related to a relevant
     portion of the path"""
-
+#TODO: evaluate if preserve proportional version or drop it 
     # toHEX function
     def toHEX(deg):
         c = colorutils.Color(hsv=(deg,1,1))
@@ -70,20 +70,28 @@ def colourSchemeMaker(df,subCategories=2):
     #(R, G, B) = (256*cos(x), 256*cos(x + 120), 256*cos(x - 120))
     entPerLib = dict() #dict with the number of entries for each book 
     for path in df["path_from_link"]:
-    #    print(path)
-        path = tuple(path[1:subCategories+1])#selects the first two relevant parts of the path
-    #    print(path)
-        if path not in entPerLib.keys():
-            entPerLib[path]= 1
-        else:
-            entPerLib[path] += 1
+#    #    print(path)
+        path = tuple(path[subCategoriesSlice])#selects the first two relevant parts of the path
+#    #    print(path)
+#        if path not in entPerLib.keys():
+#            entPerLib[path]= 1
+#        else:
+#            entPerLib[path] += 1
+        
+        #creating non proportional colouring 
+        if path not in entPerLib:
+            entPerLib[path] = 0
     entPerLib = pd.Series(entPerLib)
-    totEnt = entPerLib.sum()
-    entPerLib = entPerLib.apply(lambda x: x/totEnt*360)
+#    totEnt = entPerLib.sum()
+#    entPerLib = entPerLib.apply(lambda x: x/totEnt*360)
     cumulative = 0
+    fraction = 360/len(entPerLib)
     for entry in entPerLib.keys():
-        cumulative += entPerLib[entry]
+#        cumulative += entPerLib[entry]
+#        entPerLib[entry] = cumulative
+        #non proportional version
         entPerLib[entry] = cumulative
+        cumulative += fraction
     return entPerLib.apply(toHEX)
 #%% p plain
 def p(*args):
