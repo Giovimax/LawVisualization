@@ -20,7 +20,7 @@ from os import listdir
 
 
 #%%
-def dashify(G,colourScheme=None):
+def dashify(G,colourScheme=None,createEdges=False):
     """Creates objects for the dash app"""
     #original text of layout
     "Python code: <a href='https://plot.ly/ipython-notebooks/network-graphs/'> https://plot.ly/ipython-notebooks/network-graphs/</a>"
@@ -48,16 +48,17 @@ def dashify(G,colourScheme=None):
         
     #TODO: Verify if it's worth using 
     #populationg
-    for edge in G.edges():
-        #gets coordinates of the two nodes
-        x0, y0 = G.node[edge[0]]['pos']
-        x1, y1 = G.node[edge[1]]['pos']
-#        weight = G.edges[edge]["weight"]
-
-        #adds x,y data, 
-        #they pair since the index will be the same for x0,y0 and x1,y1
-        edge_trace['x'] += tuple([x0, x1, None])
-        edge_trace['y'] += tuple([y0, y1, None])
+    if createEdges:
+        for edge in G.edges():
+            #gets coordinates of the two nodes
+            x0, y0 = G.node[edge[0]]['pos']
+            x1, y1 = G.node[edge[1]]['pos']
+    #        weight = G.edges[edge]["weight"]
+    
+            #adds x,y data, 
+            #they pair since the index will be the same for x0,y0 and x1,y1
+            edge_trace['x'] += tuple([x0, x1, None])
+            edge_trace['y'] += tuple([y0, y1, None])
 
     
     #NODE TRACE
@@ -109,7 +110,7 @@ def dashify(G,colourScheme=None):
     #testing coloring function
     if colourScheme != None:
         for node in G.nodes():
-            relevant = node[1:3]
+            relevant = node[slice(0,1)]
             try:
                 node_trace["marker"]["color"] += tuple([colourScheme[relevant]])
             except Exception as e:
