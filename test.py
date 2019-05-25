@@ -115,7 +115,7 @@ def addWeightedEdges(G):
         for nodeB in G.nodes:
             shared = 0
             if nodeA != nodeB:
-                for i in nodeA:
+                for i in nodeA[:]:#TODO: parametrize this 
                     if i in nodeB:
                         shared+=1
                 if shared > 0:
