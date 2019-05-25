@@ -48,16 +48,16 @@ def dashify(G,colourScheme=None):
         
     #TODO: Verify if it's worth using 
     #populationg
-#    for edge in G.edges():
-#        #gets coordinates of the two nodes
-#        x0, y0 = G.node[edge[0]]['pos']
-#        x1, y1 = G.node[edge[1]]['pos']
+    for edge in G.edges():
+        #gets coordinates of the two nodes
+        x0, y0 = G.node[edge[0]]['pos']
+        x1, y1 = G.node[edge[1]]['pos']
 #        weight = G.edges[edge]["weight"]
-#
-#        #adds x,y data, 
-#        #they pair since the index will be the same for x0,y0 and x1,y1
-#        edge_trace['x'] += tuple([x0, x1, None])
-#        edge_trace['y'] += tuple([y0, y1, None])
+
+        #adds x,y data, 
+        #they pair since the index will be the same for x0,y0 and x1,y1
+        edge_trace['x'] += tuple([x0, x1, None])
+        edge_trace['y'] += tuple([y0, y1, None])
 
     
     #NODE TRACE
@@ -107,12 +107,13 @@ def dashify(G,colourScheme=None):
 #    #FIGURE, static 
 
     #testing coloring function
-    for node in G.nodes():
-        relevant = node[1:3]
-        try:
-            node_trace["marker"]["color"] += tuple([colourScheme[relevant]])
-        except Exception:
-            raise Exception
+    if colourScheme != None:
+        for node in G.nodes():
+            relevant = node[1:3]
+            try:
+                node_trace["marker"]["color"] += tuple([colourScheme[relevant]])
+            except Exception as e:
+                raise e
     #creating toreturn components
     data=[edge_trace, node_trace]
     layout=go.Layout(
@@ -193,7 +194,7 @@ if __name__=="__main__":
 #    with open("Data/newMethodTestDash","b+r") as f:
 #        print("Loading...")
 #        graphDict["newMethodTestDash"] = pickle.load(f)
-    fileName = "Data/newMethodTestDash_1"
+    fileName = "Data/three_code_test.dashTuple"
     with open(fileName,"b+r") as f:
         dashObj = pickle.load(f)
 #    
