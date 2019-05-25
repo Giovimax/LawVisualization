@@ -15,6 +15,9 @@ import datetime
 now = datetime.datetime.now 
 #%%
 def P(*args):
+    print(*args)
+#%%
+def P(*args):
     lv.pp(*args,file="three_code_test.log")
 #%%
 def addWeightedEdges(G):
@@ -31,6 +34,42 @@ def addWeightedEdges(G):
                 if shared > 0:
                     G.add_edge(nodeA,nodeB,weight=shared)
 
+def colourSchemeMaker(df,subCategoriesSlice=slice(1,3)):
+    """Takes the df and produces a dict with a colour related to a relevant
+    portion of the path"""
+#TODO: evaluate if preserve proportional version or drop it 
+    # toHEX function
+    def toHEX(deg):
+        c = colorutils.Color(hsv=(deg,1,1))
+        return c.hex
+
+    #Color assignment
+    #(R, G, B) = (256*cos(x), 256*cos(x + 120), 256*cos(x - 120))
+    entPerLib = dict() #dict with the number of entries for each book 
+    for path in df["path_from_link"]:
+#    #    print(path)
+        path = tuple(path[subCategoriesSlice])#selects the first two relevant parts of the path
+#    #    print(path)
+#        if path not in entPerLib.keys():
+#            entPerLib[path]= 1
+#        else:
+#            entPerLib[path] += 1
+        
+        #creating non proportional colouring 
+        if path not in entPerLib:
+            entPerLib[path] = 0
+    entPerLib = pd.Series(entPerLib)
+#    totEnt = entPerLib.sum()
+#    entPerLib = entPerLib.apply(lambda x: x/totEnt*360)
+    cumulative = 0
+    fraction = 360/len(entPerLib)
+    for entry in entPerLib.keys():
+#        cumulative += entPerLib[entry]
+#        entPerLib[entry] = cumulative
+        #non proportional version
+        entPerLib[entry] = cumulative
+        cumulative += fraction
+    return entPerLib.apply(toHEX)
 #%% Loading data from files
 P("Starting Full Graph production")
 Codici = "Data/Codici/"
@@ -67,7 +106,8 @@ with open("Data/three_code_test.pos","b+w") as f:
 #%%
 P("Calculating dashObj...")
 startTime = now()
-dashObj = Dash.dashify(G,)
+
+dashObj = Dash.dashify(G,colourSchemeMaker(df,slice(0,1)))
 endTime = now()
 P("dashObj calculated, time:",endTime-startTime)
 with open("Data/three_code_test.dashTuple","b+w") as f:
