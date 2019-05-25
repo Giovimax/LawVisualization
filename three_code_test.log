@@ -1,0 +1,128 @@
+-Entry- 2019-05-24 21:39:42.123942
+Starting Full Graph production 
+-Entry- 2019-05-24 21:39:42.124071
+loading codici... 
+-Entry- 2019-05-24 21:40:17.600810
+Starting Full Graph production 
+-Entry- 2019-05-24 21:40:17.601247
+loading codici... 
+-Entry- 2019-05-24 21:40:17.607718
+codici loaded. 
+-Entry- 2019-05-24 21:40:17.607846
+Creating df ,rawToPathDict and Graph obj... 
+-Entry- 2019-05-24 21:40:17.881917
+df, rawToPathDict and graph done. 
+-Entry- 2019-05-24 21:40:18.084826
+Calculating pos... 
+-Entry- 2019-05-24 21:40:38.724564
+pos calculated, time: 0:00:20.638819 
+-Entry- 2019-05-24 21:40:38.727660
+Calculating dashObj... 
+-Entry- 2019-05-24 21:43:47.210883
+Starting Full Graph production 
+-Entry- 2019-05-24 21:43:47.211167
+loading codici... 
+-Entry- 2019-05-24 21:43:47.214476
+codici loaded. 
+-Entry- 2019-05-24 21:43:47.214602
+Creating df ,rawToPathDict and Graph obj... 
+-Entry- 2019-05-24 21:43:47.472321
+df, rawToPathDict and graph done. 
+-Entry- 2019-05-24 21:43:47.665562
+Calculating pos... 
+-Entry- 2019-05-24 21:44:07.959695
+pos calculated, time: 0:00:20.293337 
+-Entry- 2019-05-24 21:44:07.962534
+Calculating dashObj... 
+-Entry- 2019-05-24 21:53:25.382682
+Calculating dashObj... 
+-Entry- 2019-05-24 21:54:58.888881
+Calculating dashObj... 
+-Entry- 2019-05-24 21:55:06.144420
+dashObj calculated, time: 0:00:07.255037 
+-Entry- 2019-05-24 21:55:06.145990
+File dumped, end. 
+-Entry- 2019-05-24 23:03:47.501659
+Starting Full Graph production 
+-Entry- 2019-05-24 23:03:47.501978
+loading codici... 
+-Entry- 2019-05-24 23:03:47.505475
+codici loaded. 
+-Entry- 2019-05-24 23:03:47.505850
+Creating df ,rawToPathDict and Graph obj... 
+-Entry- 2019-05-24 23:03:47.771998
+df, rawToPathDict and graph done. 
+-Entry- 2019-05-24 23:03:47.974049
+Calculating pos... 
+-Entry- 2019-05-24 23:04:08.650709
+pos calculated, time: 0:00:20.676056 
+-Entry- 2019-05-24 23:04:08.653848
+Calculating dashObj... 
+-Entry- 2019-05-25 21:33:25.006084
+Starting Full Graph production 
+-Entry- 2019-05-25 21:33:25.006700
+loading codici... 
+-Entry- 2019-05-25 21:33:25.013327
+codici loaded. 
+-Entry- 2019-05-25 21:33:25.013431
+Creating df ,rawToPathDict and Graph obj... 
+-Entry- 2019-05-25 21:33:25.271141
+df, rawToPathDict and graph done. 
+-Entry- 2019-05-25 21:33:25.469001
+Calculating pos... 
+-Entry- 2019-05-25 21:33:46.922452
+pos calculated, time: 0:00:21.452838 
+-Entry- 2019-05-25 21:33:46.925221
+Calculating dashObj... 
+-Entry- 2019-05-25 21:35:26.157471
+Starting Full Graph production 
+-Entry- 2019-05-25 21:35:26.157809
+loading codici... 
+-Entry- 2019-05-25 21:35:26.221943
+codici loaded. 
+-Entry- 2019-05-25 21:35:26.222329
+Creating df ,rawToPathDict and Graph obj... 
+-Entry- 2019-05-25 21:35:26.492913
+df, rawToPathDict and graph done. 
+-Entry- 2019-05-25 21:35:26.697778
+Calculating pos... 
+-Entry- 2019-05-25 21:35:47.687828
+pos calculated, time: 0:00:20.989253 
+-Entry- 2019-05-25 21:35:47.690102
+Calculating dashObj... 
+-Entry- 2019-05-25 21:40:38.347908
+Starting Full Graph production 
+-Entry- 2019-05-25 21:40:38.348113
+loading codici... 
+-Entry- 2019-05-25 21:40:38.351044
+codici loaded. 
+-Entry- 2019-05-25 21:40:38.351521
+Creating df ,rawToPathDict and Graph obj... 
+-Entry- 2019-05-25 21:40:38.610793
+df, rawToPathDict and graph done. 
+-Entry- 2019-05-25 21:40:38.817157
+Calculating pos... 
+-Entry- 2019-05-25 21:40:59.535584
+pos calculated, time: 0:00:20.717855 
+-Entry- 2019-05-25 21:40:59.538683
+Calculating dashObj... 
+-Entry- 2019-05-25 21:41:39.562346
+Starting Full Graph production 
+-Entry- 2019-05-25 21:41:39.562731
+loading codici... 
+-Entry- 2019-05-25 21:41:39.567066
+codici loaded. 
+-Entry- 2019-05-25 21:41:39.567229
+Creating df ,rawToPathDict and Graph obj... 
+-Entry- 2019-05-25 21:41:39.834302
+df, rawToPathDict and graph done. 
+-Entry- 2019-05-25 21:41:40.040969
+Calculating pos... 
+-Entry- 2019-05-25 21:42:00.940219
+pos calculated, time: 0:00:20.898385 
+-Entry- 2019-05-25 21:42:00.943061
+Calculating dashObj... 
+-Entry- 2019-05-25 21:42:08.002931
+dashObj calculated, time: 0:00:07.059079 
+-Entry- 2019-05-25 21:42:08.004019
+File dumped, end. 
