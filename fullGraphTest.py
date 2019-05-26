@@ -27,13 +27,17 @@ def addWeightedEdges(G):
     articles are"""
     for nodeA in G.nodes:
         for nodeB in G.nodes:
-            shared = 0
+            shared = 2
             if nodeA != nodeB:
                 for i in nodeA:
                     if i in nodeB:
-                        shared+=1
-                if shared > 0:
-                    G.add_edge(nodeA,nodeB,weight=shared)
+                        shared *= shared 
+                    else:#
+                        """this avoids adding weight when the nodes do not 
+                        share the same root/higher level set"""
+                        break
+                if  True:
+                    G.add_edge(nodeA,nodeB,weight=shared**2)
 
 def colourSchemeMaker(df,subCategoriesSlice=slice(1,3)):
     """Takes the df and produces a dict with a colour related to a relevant
@@ -70,7 +74,7 @@ def colourSchemeMaker(df,subCategoriesSlice=slice(1,3)):
         #non proportional version
         entPerLib[entry] = cumulative
         cumulative += fraction
-    return entPerLib.apply(toHEX)
+    return entPerLib.apply(toHEX).to_dict()
 #%% Loading data from files
 P("Starting Full Graph production")
 Codici = "Data/Codici/"
@@ -97,7 +101,10 @@ lv.populateGraphRaw(G,df,rawToPathDict)
 addWeightedEdges(G)
 P("Calculating pos...")
 startTime = now()
-pos = nx.kamada_kawai_layout(G)
+try:
+    pos
+except:
+    pos = nx.kamada_kawai_layout(G)
 endTime = now()
 P("pos calculated, time:",endTime-startTime)
 nx.set_node_attributes(G,pos,name="pos")
@@ -107,8 +114,8 @@ with open("Data/three_code_test.pos","b+w") as f:
 #%%
 P("Calculating dashObj...")
 startTime = now()
-
-dashObj = Dash.dashify(G,colourSchemeMaker(df,slice(0,1)))
+colourScheme = colourSchemeMaker(df,slice(0,1))
+dashObj = Dash.dashify(G,colourScheme)
 endTime = now()
 P("dashObj calculated, time:",endTime-startTime)
 with open("Data/three_code_test.dashTuple","b+w") as f:

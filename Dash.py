@@ -39,13 +39,14 @@ def dashify(G,colourScheme=None,createEdges=False):
     
     #EDGE TRACE
     #creating dataStructure
+
     edge_trace = go.Scatter(
         x=[],
         y=[],
         line=dict(width=0.5,color='#888'),
         hoverinfo='none',
         mode='lines')
-        
+            
     #TODO: Verify if it's worth using 
     #populationg
     if createEdges:
@@ -70,7 +71,7 @@ def dashify(G,colourScheme=None,createEdges=False):
         mode='markers',
     #    hoverinfo='text',
         marker=dict(
-            showscale=True,
+            showscale=False,
             # colorscale options
             #'Greys' | 'YlGnBu' | 'Greens' | 'YlOrRd' | 'Bluered' | 'RdBu' |
             #'Reds' | 'Blues' | 'Picnic' | 'Rainbow' | 'Portland' | 'Jet' |
@@ -85,9 +86,12 @@ def dashify(G,colourScheme=None,createEdges=False):
 #                xanchor='left',
 #                titleside='right'
 #            ),
-            line=dict(width=0.1)))
+#            line=dict(
+#                    width=1)
+            ))
     #ad hoc function to assign names
     def namer(node):
+        #TODO: review this
         name = G.nodes[node]["name"]
         if name != None:
             return name
@@ -98,7 +102,7 @@ def dashify(G,colourScheme=None,createEdges=False):
         x, y = G.node[node]['pos']
         node_trace['x'] += tuple([x])
         node_trace['y'] += tuple([y])
-        node_trace["text"] += tuple([namer(node)])
+        node_trace["text"] += tuple([node])
     #TODO: Verify if it's worth using 
     #color and text
 #    for node, adjacencies in enumerate(G.adjacency()):
@@ -108,9 +112,9 @@ def dashify(G,colourScheme=None,createEdges=False):
 #    #FIGURE, static 
 
     #testing coloring function
-    if type(colourScheme) == "pandas.core.series.Series":
+    if type(colourScheme) == dict:
         for node in G.nodes():
-            relevant = node[slice(0,1)]
+            relevant = (node[0],)
             try:
                 node_trace["marker"]["color"] += tuple([colourScheme[relevant]])
             except Exception as e:
